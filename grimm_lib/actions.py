@@ -14,6 +14,8 @@ import pandas
 actions = []
 
 class GrimmAction(object):
+    icon = None
+    
     def __init__(self, grimm_instance):
         self.grimm = grimm_instance
         self.gtk_action = Gtk.Action( self.name,
