@@ -1,5 +1,12 @@
 # -*- coding: utf-8 -*-
 
+"""
+This is the main module for the definition of actions.
+
+Actions are exposed iff they are subclasses of GrimmAction and have a "name"
+attribute.
+"""
+
 from gi.repository import Gtk
 
 import pandas

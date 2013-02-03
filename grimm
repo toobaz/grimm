@@ -50,7 +50,7 @@ class Grimm(object):
             action_group.add_action( action.gtk_action )
             
             action.merge_id = self.ui_manager.new_merge_id()
-            print "add!"
+            
             self.ui_manager.add_ui( action.merge_id,
                                     action.path,
                                     action.name,
