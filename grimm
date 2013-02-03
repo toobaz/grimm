@@ -41,7 +41,6 @@ class Grimm(object):
         action_group.add_action( Gtk.Action("FileMenu", "File", None, None) )
         action_group.add_action( Gtk.Action("HelpMenu", "Help", None, None) )
         action_group.add_action( Gtk.Action("OpenData", "Open data", None, None) )
-        action_group.add_action( Gtk.Action("Quit", "Quit", None, None) )
         action_group.add_action( Gtk.Action("AboutGretl", "About Gretl", None, None) )
     
     def load_actions(self, action_group):

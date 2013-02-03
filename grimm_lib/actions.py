@@ -17,8 +17,12 @@ class GrimmAction(object):
         self.gtk_action.connect( "activate", self.run )
 
 class GrimmQuit(GrimmAction):
-    def run(self):
-        Gtl.main_quit()
+    name = label = description = "Quit"
+    icon = Gtk.STOCK_QUIT
+    path = "/MenuBar/FileMenu"
+    
+    def run(self, *args):
+        Gtk.main_quit()
 
 class GrimmShowAbout(GrimmAction):
     def run(self):
