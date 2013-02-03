@@ -15,6 +15,17 @@ class GrimmAction(object):
                                       self.icon )
         
         self.gtk_action.connect( "activate", self.run )
+    
+    @classmethod
+    def register(cls):
+        subactions = []
+        if hasattr( cls, "name" ):
+            subactions.append( cls )
+        
+        for subclass in cls.__subclasses__():
+            subactions.extend( subclass.register() )
+        
+        return subactions
 
 class GrimmQuit(GrimmAction):
     name = label = description = "Quit"
@@ -55,4 +66,4 @@ class OpenCsv(GrimmActionOpen):
     def do_load(self, path):
         self.grimm.df = pandas.read_csv( path )
 
-actions.append( OpenCsv )
+actions = GrimmAction.register()
