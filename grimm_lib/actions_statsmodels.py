@@ -20,7 +20,7 @@ class GrimmStatsModelsModel(GrimmAction):
     def __init__(self, *args):
         super( GrimmStatsModelsModel, self ).__init__( *args )
         
-        self.ui = Ui( 'grimm', os.path.join( STUFF_DIR, 'dialogs', 'ols.glade' ) )
+        self.ui = Ui( 'grimm', os.path.join( STUFF_DIR, 'dialogs', self.glade_file ) )
         
         self.used = set()
         
