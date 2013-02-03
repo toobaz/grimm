@@ -48,6 +48,7 @@ class GrimmShowAbout(GrimmAction):
         pass
 
 class GrimmActionOpen(GrimmAction):
+    icon = Gtk.STOCK_OPEN
     def run(self, *args):
         
         fc = Gtk.FileChooserDialog()
@@ -60,8 +61,12 @@ class GrimmActionOpen(GrimmAction):
         fc.hide()
         if resp == Gtk.ResponseType.OK:
             path = fc.get_filenames()[0]
-            self.do_load( path )
+            self.grimm.df = self.command( path )
             self.grimm.refresh_series()
+    
+    def command(self, *args, **kwargs):
+        meth = getattr( pandas, self.method )
+        return meth( *args, **kwargs )
 
 class OpenCsv(GrimmActionOpen):
     name = "OpenCsv"
@@ -69,8 +74,6 @@ class OpenCsv(GrimmActionOpen):
     description = "Open CSV (Comma Separated Values)"
     path = "/MenuBar/FileMenu/OpenData"
     
-        
-    def do_load(self, path):
-        self.grimm.df = pandas.read_csv( path )
+    method = "read_csv"
 
 actions = GrimmAction.register()
