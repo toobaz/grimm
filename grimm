@@ -1,0 +1,74 @@
+#! /usr/bin/python
+# -*- coding: utf-8 -*-
+
+import os
+
+from gi.repository import Gtk
+
+from grimm_lib.ui import Ui
+from grimm_lib.config import STUFF_DIR
+from grimm_lib.actions import actions
+
+class Grimm(object):
+    df = None
+    
+    def __init__(self):
+        self.ui = Ui( 'grimm', os.path.join( STUFF_DIR, 'main.glade' ) )
+        
+        self.ui.connect_signals( self )
+        
+        self.ui_manager = Gtk.UIManager()
+        action_group = Gtk.ActionGroup( "actions" )
+        self.ui_manager.insert_action_group( action_group )
+        self.add_base_actions( action_group )
+        menu_xml_path = os.path.join( STUFF_DIR, 'base_actions.xml' )
+        self.ui_manager.add_ui_from_file( menu_xml_path )
+        menubar = self.ui_manager.get_widget( "/MenuBar" )
+        menubar.show()
+        
+        self.ui.main_box.pack_start( menubar, False, True, 0 )
+        
+        icon_path = os.path.join( STUFF_DIR, 'grimm.svg' )
+        self.ui.main_win.set_default_icon_from_file( icon_path )
+        
+        self.load_actions( action_group )
+        
+        self.ui.main_win.show_all()
+        
+        Gtk.main()
+    
+    def add_base_actions(self, action_group):
+        action_group.add_action( Gtk.Action("FileMenu", "File", None, None) )
+        action_group.add_action( Gtk.Action("HelpMenu", "Help", None, None) )
+        action_group.add_action( Gtk.Action("OpenData", "Open data", None, None) )
+        action_group.add_action( Gtk.Action("Quit", "Quit", None, None) )
+        action_group.add_action( Gtk.Action("AboutGretl", "About Gretl", None, None) )
+    
+    def load_actions(self, action_group):
+        
+        for klass in actions:
+            action = klass( self )
+            action_group.add_action( action.gtk_action )
+            
+            action.merge_id = self.ui_manager.new_merge_id()
+            print "add!"
+            self.ui_manager.add_ui( action.merge_id,
+                                    action.path,
+                                    action.name,
+                                    action.name,
+                                    Gtk.UIManagerItemType.AUTO,
+                                    False )
+    
+    def refresh_series(self):
+        self.ui.series.clear()
+        
+        for col in self.df.columns:
+            self.ui.series.append( [col] )
+        
+    def quit(self, *args):
+        print "quit"
+        Gtk.main_quit()
+
+
+if __name__ == '__main__':
+    g = Grimm()

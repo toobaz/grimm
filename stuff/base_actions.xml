@@ -1,0 +1,13 @@
+<ui>
+  <menubar action="MenuBar">
+    <menu action="FileMenu">
+      <menu action="OpenData">
+      </menu>
+      <separator />
+      <menuitem action="Quit" />
+    </menu>
+    <menu action="HelpMenu">
+      <menuitem action="AboutGretl"/>
+    </menu>
+  </menubar>
+</ui>
