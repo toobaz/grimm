@@ -5,6 +5,8 @@
       </menu>
       <separator />
     </menu>
+    <menu action="ModelsMenu">
+    </menu>
     <menu action="HelpMenu">
     </menu>
   </menubar>
