@@ -9,7 +9,11 @@ actions = []
 class GrimmAction(object):
     def __init__(self, grimm_instance):
         self.grimm = grimm_instance
-        self.gtk_action = Gtk.Action( *self.action_fields )
+        self.gtk_action = Gtk.Action( self.name,
+                                      self.label,
+                                      self.description,
+                                      self.icon )
+        
         self.gtk_action.connect( "activate", self.run )
 
 class GrimmQuit(GrimmAction):
@@ -38,12 +42,11 @@ class GrimmActionOpen(GrimmAction):
             self.grimm.refresh_series()
 
 class OpenCsv(GrimmActionOpen):
-    action_fields = ( "OpenCsv",
-                      "Open _CSV",
-                      "Open CSV (Comma Separated Values)",
-                      Gtk.STOCK_OPEN )
-    path = "/MenuBar/FileMenu/OpenData"
     name = "OpenCsv"
+    label = "Open _CSV"
+    description = "Open CSV (Comma Separated Values)"
+    path = "/MenuBar/FileMenu/OpenData"
+    
         
     def do_load(self, path):
         self.grimm.df = pandas.read_csv( path )
