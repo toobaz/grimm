@@ -43,7 +43,12 @@ class GrimmQuit(GrimmAction):
         Gtk.main_quit()
 
 class GrimmShowAbout(GrimmAction):
-    def run(self):
+    name = "ShowAbout"
+    label = description = "About Grimm"
+    icon = Gtk.STOCK_ABOUT
+    path = "/MenuBar/HelpMenu"
+    
+    def run(self, *args):
         # TODO
         pass
 

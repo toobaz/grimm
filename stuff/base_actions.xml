@@ -6,7 +6,6 @@
       <separator />
     </menu>
     <menu action="HelpMenu">
-      <menuitem action="AboutGretl"/>
     </menu>
   </menubar>
 </ui>
