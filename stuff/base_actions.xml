@@ -7,6 +7,8 @@
     </menu>
     <menu action="ModelsMenu">
     </menu>
+    <menu action="GraphsMenu">
+    </menu>
     <menu action="HelpMenu">
     </menu>
   </menubar>

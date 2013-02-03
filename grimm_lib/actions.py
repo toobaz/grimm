@@ -84,5 +84,6 @@ class OpenCsv(GrimmActionOpen):
     method = "read_csv"
 
 import actions_statsmodels
+import actions_matplotlib
 
 actions = GrimmAction.register()
