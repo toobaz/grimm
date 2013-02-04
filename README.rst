@@ -1,7 +1,11 @@
+Grimm
+=====
+
 Grimm is a program for manipulating statistic and econometric data, analogously
 to Gretl, STATA...
 
-Its goals are:
+Goals
+-----
 
 - to be scriptable in python;
 
