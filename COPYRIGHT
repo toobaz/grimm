@@ -1,0 +1,5 @@
+Copyright © 2011 Pietro Battiston <me@pietrobattiston.it>.
+
+Exceptions:
+- grimm_lib/matplotlib_future/* : Copyright © 2002-2008 John D. Hunter
+  <jdh2358@gmail.com>. See grimm_lib/matplotlib_future/LICENSE
