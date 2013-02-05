@@ -27,4 +27,8 @@ Goals
 
 - to allow handling multiple datasets together,
 
-- to ease personalization/expansion.
+- to ease personalization/expansion, while guaranteeing consistency,
+
+- to make replicability and integration in the academic workflow trivial: it
+  should require only a minimal effort to make a script produce all the graphs,
+  tables and number ready to be used in a LaTeX document.
