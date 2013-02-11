@@ -32,14 +32,20 @@ actions = []
 class GrimmAction(object):
     icon = None
     
-    def __init__(self, grimm_instance):
-        self.grimm = grimm_instance
-        self.gtk_action = Gtk.Action( self.name,
-                                      self.label,
-                                      self.description,
-                                      self.icon )
-        
-        self.gtk_action.connect( "activate", self.run )
+    @classmethod
+    def class_init(cls, grimm_instance):
+        cls.grimm = grimm_instance
+        cls.gtk_action = Gtk.Action( cls.name,
+                                     cls.label,
+                                     cls.description,
+                                     cls.icon )
+                                     
+        cls.gtk_action.connect( "activate", cls.activated )
+    
+    @classmethod
+    def activated(cls, *args):
+        inst = cls()
+        inst.run()
     
     @classmethod
     def register(cls):

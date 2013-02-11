@@ -62,8 +62,8 @@ class Grimm(object):
     
     def load_actions(self, action_group):
         
-        for klass in actions:
-            action = klass( self )
+        for action in actions:
+            action.class_init( self )
             action_group.add_action( action.gtk_action )
             
             action.merge_id = self.ui_manager.new_merge_id()
