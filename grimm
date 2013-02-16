@@ -25,6 +25,7 @@ from grimm_lib.ui import Ui
 from grimm_lib.config import STUFF_DIR
 from grimm_lib.actions import actions
 from grimm_lib.python_shell import GrimmPythonShell
+from grimm_lib.scripts_editor import GrimmScriptsEditor
 
 class Grimm(object):
     df = None
@@ -33,6 +34,8 @@ class Grimm(object):
         self.ui = Ui( 'grimm', os.path.join( STUFF_DIR, 'main.glade' ) )
         
         self.ui.connect_signals( self )
+        
+        self.context = {}
         
         self.ui_manager = Gtk.UIManager()
         action_group = Gtk.ActionGroup( "actions" )
@@ -57,6 +60,12 @@ class Grimm(object):
         self.python_shell = GrimmPythonShell( self )
         self.python_shell_window.add( self.python_shell )
         self.python_shell_window.show_all()
+        
+        self.scripts_editor_window = Gtk.Window()
+        self.scripts_editor_window.set_default_size( 800, 300 )
+        self.scripts_editor = GrimmScriptsEditor( self )
+        self.scripts_editor_window.add( self.scripts_editor )
+        self.scripts_editor_window.show_all()
         
         Gtk.main()
     

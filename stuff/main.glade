@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <interface>
   <!-- interface-requires gtk+ 3.0 -->
+  <object class="GtkAction" id="run_script"/>
   <object class="GtkListStore" id="series">
     <columns>
       <!-- column-name series_name -->
@@ -71,6 +72,50 @@
           </packing>
         </child>
       </object>
+    </child>
+  </object>
+  <object class="GtkToolbar" id="scripts_bar">
+    <property name="visible">True</property>
+    <property name="can_focus">False</property>
+    <child>
+      <object class="GtkToolButton" id="toolbutton1">
+        <property name="use_action_appearance">False</property>
+        <property name="related_action">run_script</property>
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="related_action">run_script</property>
+        <property name="use_action_appearance">False</property>
+        <property name="label" translatable="yes">toolbutton1</property>
+        <property name="use_underline">True</property>
+        <property name="stock_id">gtk-execute</property>
+      </object>
+      <packing>
+        <property name="expand">False</property>
+        <property name="homogeneous">True</property>
+      </packing>
+    </child>
+  </object>
+  <object class="GtkNotebook" id="scripts_book">
+    <property name="visible">True</property>
+    <property name="can_focus">True</property>
+    <property name="vexpand">True</property>
+    <child>
+      <placeholder/>
+    </child>
+    <child type="tab">
+      <placeholder/>
+    </child>
+    <child>
+      <placeholder/>
+    </child>
+    <child type="tab">
+      <placeholder/>
+    </child>
+    <child>
+      <placeholder/>
+    </child>
+    <child type="tab">
+      <placeholder/>
     </child>
   </object>
   <object class="GtkTextBuffer" id="shell"/>

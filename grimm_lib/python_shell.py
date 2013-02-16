@@ -30,6 +30,7 @@ from gi.repository import Gdk, Gtk, Pango
 from cStringIO import StringIO
 import sys
 import traceback
+import code
 
 class GrimmPythonShell(Gtk.ScrolledWindow):
     def __init__(self, grimm_instance):
@@ -37,7 +38,7 @@ class GrimmPythonShell(Gtk.ScrolledWindow):
         
         self.history = ['']
         self.hist_cursor = -1
-        self.locals = {}
+        self.locals = grimm_instance.context
         
         self.in_block = False
         self.pending_command = ''
@@ -88,38 +89,21 @@ class GrimmPythonShell(Gtk.ScrolledWindow):
             self.history.insert( 0, command )
             self.cur_history_index = -1
         
-        last_char = command[-1]
-        if last_char in (":", "\\")\
-        or (self.in_block and last_char in (' ', '\t')):
-            if not self.pending_command:
-                self.pending_command = "\n"
-            else:
-                self.pending_command += ("%s\n" % command)
+        if (command and command[-1] in (":", "\\"))\
+        or (self.in_block and command and ( command[0] in (' ', '\t'))):
+            self.pending_command += command + '\n'
             
-            if last_char == ':':
+            if command[-1] == ':':
                 self.in_block = True
         
         else:
-            if self.pending_command:
-                self.pending_command +=  ("%s\n" % command)
-        
-            old_stdout = sys.stdout
-            redirected_output = sys.stdout = StringIO()
+            full_command = self.pending_command + ("%s\n" % command)
             
-            dict_loc = {}
-            dict_glob = {}
             try:
-                try:
-                    result = eval( command, globals(), self.locals )
-                    out = "%s\n" % result
-                except SyntaxError:
-                    exec( command, globals(), self.locals )
-                    out = redirected_output.getvalue()
-                self.append_text( out, "stdout" )
-            except:
-                self.append_text( "".join( traceback.format_exc() ), "stderr" )
-            
-            sys.stdout = old_stdout
+                compiled = code.compile_command( full_command )
+                self.run_command( None, compiled )
+            except SyntaxError:
+                self.print_error( full_command )
             
             if self.pending_command:
                 self.pending_command = ''
@@ -202,3 +186,24 @@ class GrimmPythonShell(Gtk.ScrolledWindow):
                                                 text,
                                                 tag )
         self.ui.shell_view.scroll_to_mark( insert, 0, True, 0, 1 )
+    
+    def run_command(self, code, compiled):
+        print "compiled is", compiled
+        if code:
+            self.append_text( code, "stdout" )
+        
+        old_stdout = sys.stdout
+        redirected_output = sys.stdout = StringIO()
+        
+        try:
+            exec( compiled, globals(), self.locals )
+            self.append_text( redirected_output.getvalue(), "stdout" )
+        except:
+            self.print_error( redirected_output.getvalue() )
+        
+        if code:
+            self.write_prompt()
+    
+    def print_error(self, code):
+        self.append_text( code, "stdout" )
+        self.append_text( "".join( traceback.format_exc() ), "stderr" )
