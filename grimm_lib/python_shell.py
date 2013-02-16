@@ -188,7 +188,6 @@ class GrimmPythonShell(Gtk.ScrolledWindow):
         self.ui.shell_view.scroll_to_mark( insert, 0, True, 0, 1 )
     
     def run_command(self, code, compiled):
-        print "compiled is", compiled
         if code:
             self.append_text( code, "stdout" )
         
