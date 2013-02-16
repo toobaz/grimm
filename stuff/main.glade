@@ -73,4 +73,10 @@
       </object>
     </child>
   </object>
+  <object class="GtkTextBuffer" id="shell"/>
+  <object class="GtkTextView" id="shell_view">
+    <property name="visible">True</property>
+    <property name="can_focus">True</property>
+    <property name="buffer">shell</property>
+  </object>
 </interface>
