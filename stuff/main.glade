@@ -36,35 +36,59 @@
         <property name="can_focus">False</property>
         <property name="orientation">vertical</property>
         <child>
-          <placeholder/>
-        </child>
-        <child>
-          <object class="GtkTreeView" id="series_view">
+          <object class="GtkPaned" id="top_pane">
             <property name="visible">True</property>
             <property name="can_focus">True</property>
-            <property name="model">series</property>
-            <property name="search_column">0</property>
-            <child internal-child="selection">
-              <object class="GtkTreeSelection" id="series_selection"/>
-            </child>
             <child>
-              <object class="GtkTreeViewColumn" id="Name">
-                <property name="title" translatable="yes">Variable name</property>
+              <object class="GtkBox" id="left_box">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="orientation">vertical</property>
                 <child>
-                  <object class="GtkCellRendererText" id="series_cr_name"/>
-                  <attributes>
-                    <attribute name="text">0</attribute>
-                  </attributes>
+                  <object class="GtkTreeView" id="series_view">
+                    <property name="visible">True</property>
+                    <property name="can_focus">True</property>
+                    <property name="model">series</property>
+                    <property name="search_column">0</property>
+                    <child>
+                      <object class="GtkTreeViewColumn" id="Name">
+                        <property name="title" translatable="yes">Variable name</property>
+                        <child>
+                          <object class="GtkCellRendererText" id="series_cr_name"/>
+                          <attributes>
+                            <attribute name="text">0</attribute>
+                          </attributes>
+                        </child>
+                      </object>
+                    </child>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">True</property>
+                    <property name="position">0</property>
+                  </packing>
+                </child>
+                <child>
+                  <placeholder/>
                 </child>
               </object>
+              <packing>
+                <property name="resize">False</property>
+                <property name="shrink">True</property>
+              </packing>
+            </child>
+            <child>
+              <placeholder/>
             </child>
           </object>
           <packing>
-            <property name="expand">True</property>
+            <property name="expand">False</property>
             <property name="fill">True</property>
-            <property name="pack_type">end</property>
-            <property name="position">1</property>
+            <property name="position">0</property>
           </packing>
+        </child>
+        <child>
+          <placeholder/>
         </child>
         <child>
           <object class="GtkButtonBox" id="bottons">

@@ -27,6 +27,10 @@ from grimm_lib.actions import actions
 from grimm_lib.python_shell import GrimmPythonShell
 from grimm_lib.scripts_editor import GrimmScriptsEditor
 
+SINGLE, WINDOWED = range( 2 )
+
+WINDOW_MODE = SINGLE
+
 class Grimm(object):
     df = None
     
@@ -53,20 +57,24 @@ class Grimm(object):
         
         self.load_actions( action_group )
         
-        self.ui.main_win.show_all()
-        
-        self.python_shell_window = Gtk.Window()
-        self.python_shell_window.set_default_size( 800, 300 )
         self.python_shell = GrimmPythonShell( self )
-        self.python_shell_window.add( self.python_shell )
-        self.python_shell_window.show_all()
-        
-        self.scripts_editor_window = Gtk.Window()
-        self.scripts_editor_window.set_default_size( 800, 300 )
         self.scripts_editor = GrimmScriptsEditor( self )
-        self.scripts_editor_window.add( self.scripts_editor )
-        self.scripts_editor_window.show_all()
         
+        if WINDOW_MODE == WINDOWED:
+            self.python_shell_window = Gtk.Window()
+            self.python_shell_window.set_default_size( 800, 300 )
+            self.python_shell_window.add( self.python_shell )
+            self.python_shell_window.show_all()
+            
+            self.scripts_editor_window = Gtk.Window()
+            self.scripts_editor_window.set_default_size( 800, 300 )
+            self.scripts_editor_window.add( self.scripts_editor )
+            self.scripts_editor_window.show_all()
+        else:
+            self.ui.top_pane.add2( self.scripts_editor )
+            self.ui.left_box.pack_end( self.python_shell, True, True, 0  )
+        
+        self.ui.main_win.show_all()
         Gtk.main()
     
     def add_base_actions(self, action_group):
