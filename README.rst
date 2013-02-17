@@ -5,7 +5,18 @@ Grimm is a program for manipulating statistic and econometric data, analogously
 to Gretl, STATA...
 
 It's in a very early stage of development, but to get an idea of how it looks you can just
-download it and run "./grimm". You will need `pandas <http://pandas.pydata.org/>`_, `matplotlib <http://matplotlib.org>`_ and a recent (0.4.2 is not enough) version of `statsmodels <http://statsmodels.sourceforge.net>`_.
+download it and run "./grimm". Then, paste into the scripts editing window the
+following::
+
+  open_csv( "/usr/share/pyshared/pandas/tests/data/iris.csv" )
+  ols( PetalWidth, SepalWidth )
+  scatter( PetalWidth, SepalWidth )
+
+and click the "Run" button just above.
+
+You will need `pandas <http://pandas.pydata.org/>`_,
+`matplotlib <http://matplotlib.org>`_ and a recent (0.4.2 is not enough) version
+of `statsmodels <http://statsmodels.sourceforge.net>`_.
 
 Goals
 -----
