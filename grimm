@@ -71,10 +71,11 @@ class Grimm(object):
             self.scripts_editor_window.add( self.scripts_editor )
             self.scripts_editor_window.show_all()
         else:
-            self.ui.top_pane.add2( self.scripts_editor )
-            self.ui.left_box.pack_end( self.python_shell, True, True, 0  )
+            self.ui.scripts_frame.add( self.scripts_editor )
+            self.ui.console_frame.add( self.python_shell )
         
         self.ui.main_win.show_all()
+        self.ui.main_win.maximize()
         Gtk.main()
     
     def add_base_actions(self, action_group):
