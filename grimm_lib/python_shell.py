@@ -185,7 +185,7 @@ class GrimmPythonShell(Gtk.ScrolledWindow):
         self.ui.shell.insert_with_tags_by_name( end_iter,
                                                 text,
                                                 tag )
-        self.ui.shell_view.scroll_to_mark( insert, 0, True, 0, 1 )
+        self.ui.shell_view.scroll_to_mark( insert, 0, True, 0.5, 1 )
     
     def run_command(self, code, compiled):
         if code:
