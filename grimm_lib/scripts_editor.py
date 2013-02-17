@@ -63,11 +63,13 @@ class Script(Gtk.ScrolledWindow):
     def save(self):
         path = self.file.get_path()
         fout = open( path, 'w' )
+        fout.write( self.text() )
+        fout.close()
+    
+    def text(self):
         start, end = self.buffer.get_bounds()
         text = self.buffer.get_text( start, end, False )
-        fout.write( text )
-        fout.close()
-        
+        return text        
 
 class GrimmScriptsEditor(Gtk.Box):
     def __init__(self, grimm_instance):
@@ -111,6 +113,12 @@ class GrimmScriptsEditor(Gtk.Box):
         resp = self.ui.script_fileopener.run()
         self.ui.script_fileopener.hide()
         if resp == Gtk.ResponseType.OK:
+            # If there's an open dummy one, close it:
+            if self.ui.scripts_book.get_n_pages() == 1:
+                cur_script = self.ui.scripts_book.get_nth_page( 0 )
+                if not cur_script.text() and not cur_script.file:
+                    self.script_close()
+            
             script = Script( self.ui.script_fileopener.get_uri() )
             self.ui.scripts_book.append_page( script, script.label )
             index = self.ui.scripts_book.page_num( script.view )
