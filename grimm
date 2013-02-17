@@ -39,7 +39,7 @@ class Grimm(object):
         
         self.ui.connect_signals( self )
         
-        self.context = {}
+        self.context = { "df" : None }
         
         self.ui_manager = Gtk.UIManager()
         action_group = Gtk.ActionGroup( "actions" )
@@ -101,12 +101,19 @@ class Grimm(object):
                                     action.name,
                                     Gtk.UIManagerItemType.AUTO,
                                     False )
+            # TODO: refactor a bit names:
+            if hasattr( action, "run_inner" ):
+                self.context[action.grimm_command] = action.context()
     
-    def refresh_series(self):
+    def refresh_series(self, df):
+        # TODO: Remove old series from context
+        self.df = df
         self.ui.series.clear()
         
+        self.context["df"] = df
         for col in self.df.columns:
             self.ui.series.append( [col] )
+            self.context[col] = df[[col]]
         
     def quit(self, *args):
         print "quit"

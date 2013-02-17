@@ -30,8 +30,15 @@ import pandas
 actions = []
 
 class GrimmAction(object):
+    """This is the class from which all actions must inherit.
+    It provides some class methods for registration/instanciating, as well as
+    some common routines, typically for interacting with the dialogs GUI."""
+    
     icon = None
     
+    ############################################################################
+    ##########                  Class methods                       ############
+    ############################################################################
     @classmethod
     def class_init(cls, grimm_instance):
         cls.grimm = grimm_instance
@@ -57,6 +64,14 @@ class GrimmAction(object):
             subactions.extend( subclass.register() )
         
         return subactions
+    
+    @classmethod
+    def context(cls):
+        return (lambda *args, **kwargs : cls().run_inner( *args, **kwargs ) )
+    
+    ############################################################################
+    ##########                   UI routines                        ############
+    ############################################################################
 
 class GrimmQuit(GrimmAction):
     name = label = description = "Quit"
@@ -90,8 +105,11 @@ class GrimmActionOpen(GrimmAction):
         fc.hide()
         if resp == Gtk.ResponseType.OK:
             path = fc.get_filenames()[0]
-            self.grimm.df = self.command( path )
-            self.grimm.refresh_series()
+            self.run_inner( path )
+    
+    def run_inner(self, path):
+        df = self.command( path )
+        self.grimm.refresh_series( df )
     
     def command(self, *args, **kwargs):
         meth = getattr( pandas, self.method )
@@ -102,6 +120,7 @@ class OpenCsv(GrimmActionOpen):
     label = "Open _CSV"
     description = "Open CSV (Comma Separated Values)"
     path = "/MenuBar/FileMenu/OpenData"
+    grimm_command = "open_csv"
     
     method = "read_csv"
 

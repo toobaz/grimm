@@ -45,9 +45,10 @@ class GrimmMatplotlibPlot(GrimmAction):
         
         self.ui.connect_signals( self )
 
-class OLS(GrimmMatplotlibPlot):
+class Scatter(GrimmMatplotlibPlot):
     name = label = description = "Scatterplot"
     path = "/MenuBar/GraphsMenu"
+    grimm_command = "scatter"
     
     glade_file = "scatterplot.glade"
     
@@ -124,7 +125,9 @@ class OLS(GrimmMatplotlibPlot):
         
         args = [endog, exog]
         kwargs = {}
-        
+        self.run_inner( *args, **krwargs )
+    
+    def run_inner(self, endog, exog, **kwargs ):
         
         signs = ['x', '+']
         colours = ['r', 'b']

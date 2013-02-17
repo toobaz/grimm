@@ -41,11 +41,27 @@ class GrimmStatsModelsModel(GrimmAction):
         self.used = set()
         
         self.ui.connect_signals( self )
+    
+    def run_inner(self, *args, **kwargs):
+        """
+        Used in all invocation.
+        """
+        reg = self.method( *args, **kwargs ).fit()
+        
+        summary = reg.summary()
+        
+        fontdesc = Pango.FontDescription( "monospace" )
+        self.ui.outputview.modify_font( fontdesc )
+        
+        self.ui.output.set_text( str( summary ) )
+        resp = self.ui.output_dialog.run()
+        self.ui.output_dialog.hide()        
 
 class OLS(GrimmStatsModelsModel):
     method = sm.OLS
     name = label = description = "OLS"
     path = "/MenuBar/ModelsMenu"
+    grimm_command = "ols"
     
     glade_file = "ols.glade"
     
@@ -124,15 +140,4 @@ class OLS(GrimmStatsModelsModel):
         kwargs = { "missing"  : "drop",
                    "hasconst" : self.ui.hasconst.get_active() }
         
-        reg = self.method( *args, **kwargs ).fit()
-        
-        summary = reg.summary()
-        
-        fontdesc = Pango.FontDescription( "monospace" )
-        self.ui.outputview.modify_font( fontdesc )
-        
-        self.ui.output.set_text( str( summary ) )
-        resp = self.ui.output_dialog.run()
-        self.ui.output_dialog.hide()
-    
-
+        self( *args, **kwargs )
