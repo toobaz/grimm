@@ -15,11 +15,22 @@ following::
 and click the "Run" button just above.
 
 Requirements
------
+------------
 
-In order to run Grimm, You will need `pandas <http://pandas.pydata.org/>`_,
-`matplotlib <http://matplotlib.org>`_ and a recent (0.4.2 is not enough) version
-of `statsmodels <http://statsmodels.sourceforge.net>`_.
+In order to run Grimm, you will need to have installed:
+
+- Python,
+
+- gtk 3 libraries, including GtkSourceView and support for introspection (all
+  rather standard in modern Linux distributions),
+
+- `pandas <http://pandas.pydata.org/>`_,
+
+- `matplotlib <http://matplotlib.org>`_,
+
+- a recent (0.4.2 is not enough) version of
+  `statsmodels <http://statsmodels.sourceforge.net>`_.
+
 
 Goals
 -----
