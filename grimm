@@ -74,6 +74,8 @@ class Grimm(object):
             self.ui.scripts_frame.add( self.scripts_editor )
             self.ui.console_frame.add( self.python_shell )
         
+        self.ui.vicetop_pane.set_position( 300 )
+        self.ui.top_pane.set_position( 700 )
         self.ui.main_win.show_all()
         self.ui.main_win.maximize()
         Gtk.main()

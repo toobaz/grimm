@@ -237,12 +237,14 @@
           <object class="GtkPaned" id="top_pane">
             <property name="visible">True</property>
             <property name="can_focus">True</property>
+            <property name="position_set">True</property>
             <child>
               <object class="GtkPaned" id="vicetop_pane">
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="margin_bottom">3</property>
                 <property name="orientation">vertical</property>
+                <property name="position_set">True</property>
                 <child>
                   <object class="GtkFrame" id="frame1">
                     <property name="visible">True</property>
