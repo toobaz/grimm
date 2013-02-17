@@ -14,7 +14,10 @@ following::
 
 and click the "Run" button just above.
 
-You will need `pandas <http://pandas.pydata.org/>`_,
+Requirements
+-----
+
+In order to run Grimm, You will need `pandas <http://pandas.pydata.org/>`_,
 `matplotlib <http://matplotlib.org>`_ and a recent (0.4.2 is not enough) version
 of `statsmodels <http://statsmodels.sourceforge.net>`_.
 
