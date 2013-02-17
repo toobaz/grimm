@@ -52,8 +52,34 @@ class Script(Gtk.ScrolledWindow):
         else:
             self.file = None
         self.name = name
-        self.label = Gtk.Label( name )
+        self.name_label = Gtk.Label( name )
+        self.label = Gtk.Box()
+        self.label.pack_start( self.name_label, False, False, 0 )
+        # From http://www.micahcarrick.com/gtk-notebook-tabs-with-close-button.html
+        button = Gtk.Button()
+        button.add( Gtk.Image.new_from_stock(Gtk.STOCK_CLOSE, Gtk.IconSize.MENU) )
+        button.connect( "clicked", self.close )
+        button.set_relief(Gtk.ReliefStyle.NONE)
+        button.set_focus_on_click( False )
+        data =  ".button {\n" \
+                "-GtkButton-default-border : 0px;\n" \
+                "-GtkButton-default-outside-border : 0px;\n" \
+                "-GtkButton-inner-border: 0px;\n" \
+                "-GtkWidget-focus-line-width : 0px;\n" \
+                "-GtkWidget-focus-padding : 0px;\n" \
+                "padding: 0px;\n" \
+                "}"
+        provider = Gtk.CssProvider()
+        provider.load_from_data(data)
+        # 600 = GTK_STYLE_PROVIDER_PRIORITY_APPLICATION
+        button.get_style_context().add_provider(provider, 600) 
+        self.label.pack_start( button, False, False, 0 )
+        self.label.show_all()
         self.show_all()
+    
+    def close(self, *args):
+        # FIXME: check for changes...
+        self.destroy()
     
     def change_uri(self, uri):
         self.file = Gio.File.new_for_uri( uri )
@@ -85,7 +111,7 @@ class GrimmScriptsEditor(Gtk.Box):
         
         self.opened_scripts = set()
         
-        for thing in ("new", "open", "save", "save_as", "run", "close"):
+        for thing in ("new", "open", "save", "save_as", "run"):
             full_thing = "script_%s" % thing
             action = getattr( self.ui, full_thing )
             callback = getattr( self, full_thing )
@@ -167,4 +193,4 @@ class GrimmScriptsEditor(Gtk.Box):
     def script_close(self, *args):
         active_index = self.ui.scripts_book.get_current_page()
         active_script = self.ui.scripts_book.get_nth_page( active_index )
-        self.ui.scripts_book.remove_page( active_index )
+        active_script.close()
