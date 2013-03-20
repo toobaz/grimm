@@ -84,7 +84,7 @@ class Script(Gtk.ScrolledWindow):
     def change_uri(self, uri):
         self.file = Gio.File.new_for_uri( uri )
         name = self.file.get_basename()
-        self.label.set_text( name )
+        self.name_label.set_text( name )
     
     def save(self):
         path = self.file.get_path()
