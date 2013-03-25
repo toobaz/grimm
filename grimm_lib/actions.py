@@ -34,7 +34,7 @@ class GrimmAction(object):
     It provides some class methods for registration/instanciating, as well as
     some common routines, typically for interacting with the dialogs GUI."""
     
-    icon = None
+    icon = accel = None
     
     ############################################################################
     ##########                  Class methods                       ############
@@ -46,7 +46,7 @@ class GrimmAction(object):
                                      cls.label,
                                      cls.description,
                                      cls.icon )
-                                     
+        
         cls.gtk_action.connect( "activate", cls.activated )
     
     @classmethod
@@ -126,5 +126,3 @@ class OpenCsv(GrimmActionOpen):
 
 import actions_statsmodels
 import actions_matplotlib
-
-actions = GrimmAction.register()

@@ -9,6 +9,8 @@
     </menu>
     <menu action="GraphsMenu">
     </menu>
+    <menu action="ScriptsMenu">
+    </menu>
     <menu action="HelpMenu">
     </menu>
   </menubar>

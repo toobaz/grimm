@@ -27,6 +27,8 @@ import traceback
 import code
 import os
 
+from actions import GrimmAction
+
 class Script(Gtk.ScrolledWindow):
     uri = ''
     lm = GtkSource.LanguageManager.get_default()
@@ -194,3 +196,41 @@ class GrimmScriptsEditor(Gtk.Box):
         active_index = self.ui.scripts_book.get_current_page()
         active_script = self.ui.scripts_book.get_nth_page( active_index )
         active_script.close()
+
+class GrimmScriptAction(GrimmAction):
+    path = "/MenuBar/ScriptsMenu"
+    
+    def run(self, *args):
+        meth = getattr( self.grimm.scripts_editor, "script_%s" % self.method )
+        meth()
+
+class GrimmScriptNew(GrimmScriptAction):
+    name = label = description = "New"
+    icon = Gtk.STOCK_NEW
+    accel = "<Control>n"
+    method = "new"
+
+class GrimmScriptOpen(GrimmScriptAction):
+    name = label = description = "Open"
+    icon = Gtk.STOCK_OPEN
+    accel = "<Control><Shift>o"
+    method = "open"
+
+class GrimmScriptClose(GrimmScriptAction):
+    name = label = description = "Close"
+    icon = Gtk.STOCK_CLOSE
+    accel = "<Control>w"
+    method = "close"
+
+class GrimmScriptSave(GrimmScriptAction):
+    name = label = description = "Save"
+    icon = Gtk.STOCK_SAVE
+    accel = "<Control>s"
+    method = "save"
+
+class GrimmScriptSaveAs(GrimmScriptAction):
+    name = label = description = "Save as..."
+    icon = Gtk.STOCK_SAVE_AS
+    accel = "<Control><Shift>s"
+    method = "save_as"
+

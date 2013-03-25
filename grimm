@@ -23,7 +23,7 @@ from gi.repository import Gtk
 
 from grimm_lib.ui import Ui
 from grimm_lib.config import STUFF_DIR
-from grimm_lib.actions import actions
+from grimm_lib.actions import GrimmAction
 from grimm_lib.python_shell import GrimmPythonShell
 from grimm_lib.scripts_editor import GrimmScriptsEditor
 
@@ -42,9 +42,9 @@ class Grimm(object):
         self.context = { "df" : None }
         
         self.ui_manager = Gtk.UIManager()
-        action_group = Gtk.ActionGroup( "actions" )
-        self.ui_manager.insert_action_group( action_group )
-        self.add_base_actions( action_group )
+        self.action_group = Gtk.ActionGroup( "actions" )
+        self.ui_manager.insert_action_group( self.action_group )
+        self.add_base_actions()
         menu_xml_path = os.path.join( STUFF_DIR, 'base_actions.xml' )
         self.ui_manager.add_ui_from_file( menu_xml_path )
         menubar = self.ui_manager.get_widget( "/MenuBar" )
@@ -55,7 +55,9 @@ class Grimm(object):
         icon_path = os.path.join( STUFF_DIR, 'grimm.svg' )
         self.ui.main_win.set_default_icon_from_file( icon_path )
         
-        self.load_actions( action_group )
+        self.load_actions()
+        
+        self.ui.main_win.add_accel_group( self.ui_manager.get_accel_group() )
         
         self.python_shell = GrimmPythonShell( self )
         self.scripts_editor = GrimmScriptsEditor( self )
@@ -80,18 +82,22 @@ class Grimm(object):
         self.ui.main_win.maximize()
         Gtk.main()
     
-    def add_base_actions(self, action_group):
-        action_group.add_action( Gtk.Action("FileMenu", "File", None, None) )
-        action_group.add_action( Gtk.Action("HelpMenu", "Help", None, None) )
-        action_group.add_action( Gtk.Action("ModelsMenu", "Models", None, None) )
-        action_group.add_action( Gtk.Action("GraphsMenu", "Graphs", None, None) )
-        action_group.add_action( Gtk.Action("OpenData", "Open data", None, None) )
+    def add_base_actions(self):
+        self.action_group.add_action( Gtk.Action("FileMenu", "File", None, None) )
+        self.action_group.add_action( Gtk.Action("HelpMenu", "Help", None, None) )
+        self.action_group.add_action( Gtk.Action("ModelsMenu", "Models", None, None) )
+        self.action_group.add_action( Gtk.Action("GraphsMenu", "Graphs", None, None) )
+        self.action_group.add_action( Gtk.Action("OpenData", "Open data", None, None) )
+        self.action_group.add_action( Gtk.Action("ScriptsMenu", "Scripts", None, None) )
     
-    def load_actions(self, action_group):
+    def load_actions(self):
         
+        actions = GrimmAction.register()
+                
         for action in actions:
             action.class_init( self )
-            action_group.add_action( action.gtk_action )
+            self.action_group.add_action_with_accel( action.gtk_action,
+                                                     action.accel )
             
             action.merge_id = self.ui_manager.new_merge_id()
             
