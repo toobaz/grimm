@@ -103,23 +103,36 @@ class GrimmScriptsEditor(Gtk.Box):
     def __init__(self, grimm_instance):
         Gtk.Box.__init__( self )
         
-        self.set_orientation( Gtk.Orientation.VERTICAL )
+        self.opened_scripts = set()
         self.ui = grimm_instance.ui
         self.locals = grimm_instance.context
         self.shell = grimm_instance.python_shell
+        self.ui_manager = grimm_instance.ui_manager
         
-        self.pack_start( self.ui.scripts_bar, False, False, 0 )
+        self.set_orientation( Gtk.Orientation.VERTICAL )
+        
+        scripts_bar = self.build_toolbar()
+        
+        self.pack_start( scripts_bar, False, False, 0 )
         self.pack_start( self.ui.scripts_book, True, True, 0 )
         
-        self.opened_scripts = set()
-        
-        for thing in ("new", "open", "save", "save_as", "run"):
-            full_thing = "script_%s" % thing
-            action = getattr( self.ui, full_thing )
-            callback = getattr( self, full_thing )
-            action.connect( "activate", callback )
-        
         self.script_new()
+        
+    def build_toolbar(self):
+        
+        actions = GrimmScriptAction.register()
+                
+        for action in actions:
+            action.scripts_merge_id = self.ui_manager.new_merge_id()
+            
+            self.ui_manager.add_ui( action.scripts_merge_id,
+                                    "/ScriptsToolbar",
+                                    action.name,
+                                    action.name,
+                                    Gtk.UIManagerItemType.AUTO,
+                                    False )
+        
+        return self.ui_manager.get_widget( "/ScriptsToolbar" )
     
     def script_new(self, *args):
         i = 0

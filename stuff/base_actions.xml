@@ -14,4 +14,11 @@
     <menu action="HelpMenu">
     </menu>
   </menubar>
+
+  <toolbar name="ScriptsToolbar" action="ScriptsToolbar">
+    <separator/>
+    <placeholder name="ToolItems">
+    </placeholder>
+    <separator/>
+  </toolbar>
 </ui>

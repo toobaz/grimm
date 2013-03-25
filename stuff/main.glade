@@ -1,24 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <interface>
   <!-- interface-requires gtk+ 3.0 -->
-  <object class="GtkAction" id="script_close">
-    <property name="stock_id">gtk-close</property>
-  </object>
-  <object class="GtkAction" id="script_new">
-    <property name="stock_id">gtk-new</property>
-  </object>
-  <object class="GtkAction" id="script_open">
-    <property name="stock_id">gtk-open</property>
-  </object>
-  <object class="GtkAction" id="script_run">
-    <property name="stock_id">gtk-execute</property>
-  </object>
-  <object class="GtkAction" id="script_save">
-    <property name="stock_id">gtk-save</property>
-  </object>
-  <object class="GtkAction" id="script_save_as">
-    <property name="stock_id">gtk-save-as</property>
-  </object>
   <object class="GtkFileChooserDialog" id="script_filesaver">
     <property name="can_focus">False</property>
     <property name="border_width">5</property>
@@ -83,80 +65,6 @@
       <action-widget response="-6">button4</action-widget>
       <action-widget response="-5">button3</action-widget>
     </action-widgets>
-  </object>
-  <object class="GtkToolbar" id="scripts_bar">
-    <property name="visible">True</property>
-    <property name="can_focus">False</property>
-    <child>
-      <object class="GtkToolButton" id="toolbutton2">
-        <property name="related_action">script_new</property>
-        <property name="visible">True</property>
-        <property name="can_focus">False</property>
-        <property name="related_action">script_new</property>
-        <property name="label" translatable="yes">toolbutton2</property>
-        <property name="use_underline">True</property>
-      </object>
-      <packing>
-        <property name="expand">False</property>
-        <property name="homogeneous">True</property>
-      </packing>
-    </child>
-    <child>
-      <object class="GtkToolButton" id="toolbutton3">
-        <property name="related_action">script_open</property>
-        <property name="visible">True</property>
-        <property name="can_focus">False</property>
-        <property name="related_action">script_open</property>
-        <property name="label" translatable="yes">toolbutton3</property>
-        <property name="use_underline">True</property>
-      </object>
-      <packing>
-        <property name="expand">False</property>
-        <property name="homogeneous">True</property>
-      </packing>
-    </child>
-    <child>
-      <object class="GtkToolButton" id="toolbutton4">
-        <property name="related_action">script_save</property>
-        <property name="visible">True</property>
-        <property name="can_focus">False</property>
-        <property name="related_action">script_save</property>
-        <property name="label" translatable="yes">toolbutton4</property>
-        <property name="use_underline">True</property>
-      </object>
-      <packing>
-        <property name="expand">False</property>
-        <property name="homogeneous">True</property>
-      </packing>
-    </child>
-    <child>
-      <object class="GtkToolButton" id="toolbutton5">
-        <property name="related_action">script_save_as</property>
-        <property name="visible">True</property>
-        <property name="can_focus">False</property>
-        <property name="related_action">script_save_as</property>
-        <property name="label" translatable="yes">toolbutton5</property>
-        <property name="use_underline">True</property>
-      </object>
-      <packing>
-        <property name="expand">False</property>
-        <property name="homogeneous">True</property>
-      </packing>
-    </child>
-    <child>
-      <object class="GtkToolButton" id="toolbutton1">
-        <property name="related_action">script_run</property>
-        <property name="visible">True</property>
-        <property name="can_focus">False</property>
-        <property name="related_action">script_run</property>
-        <property name="label" translatable="yes">toolbutton1</property>
-        <property name="use_underline">True</property>
-      </object>
-      <packing>
-        <property name="expand">False</property>
-        <property name="homogeneous">True</property>
-      </packing>
-    </child>
   </object>
   <object class="GtkNotebook" id="scripts_book">
     <property name="visible">True</property>
