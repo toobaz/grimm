@@ -209,6 +209,19 @@ class GrimmScriptsEditor(Gtk.Box):
         active_index = self.ui.scripts_book.get_current_page()
         active_script = self.ui.scripts_book.get_nth_page( active_index )
         active_script.close()
+    
+    def script_undo(self, *args):
+        active_index = self.ui.scripts_book.get_current_page()
+        active_script = self.ui.scripts_book.get_nth_page( active_index )
+        if active_script.buffer.can_undo():
+            active_script.buffer.undo()
+    
+    def script_redo(self, *args):
+        active_index = self.ui.scripts_book.get_current_page()
+        active_script = self.ui.scripts_book.get_nth_page( active_index )
+        active_script.buffer.redo()
+        if active_script.buffer.can_redo():
+            active_script.buffer.redo()
 
 class GrimmScriptAction(GrimmAction):
     path = "/MenuBar/ScriptsMenu"
@@ -229,12 +242,6 @@ class GrimmScriptOpen(GrimmScriptAction):
     accel = "<Control><Shift>o"
     method = "open"
 
-class GrimmScriptClose(GrimmScriptAction):
-    name = label = description = "Close"
-    icon = Gtk.STOCK_CLOSE
-    accel = "<Control>w"
-    method = "close"
-
 class GrimmScriptSave(GrimmScriptAction):
     name = label = description = "Save"
     icon = Gtk.STOCK_SAVE
@@ -247,3 +254,26 @@ class GrimmScriptSaveAs(GrimmScriptAction):
     accel = "<Control><Shift>s"
     method = "save_as"
 
+class GrimmScriptRun(GrimmScriptAction):
+    name = label = description = "Run"
+    icon = Gtk.STOCK_EXECUTE
+    accel = "<Control>r"
+    method = "run"
+
+class GrimmScriptUndo(GrimmScriptAction):
+    name = label = description = "Undo"
+    icon = Gtk.STOCK_UNDO
+    accel = "<Control>z"
+    method = "undo"
+
+class GrimmScriptRedo(GrimmScriptAction):
+    name = label = description = "Redo"
+    icon = Gtk.STOCK_REDO
+    accel = "<Control>y"
+    method = "redo"
+
+class GrimmScriptClose(GrimmScriptAction):
+    name = label = description = "Close"
+    icon = Gtk.STOCK_CLOSE
+    accel = "<Control>w"
+    method = "close"
