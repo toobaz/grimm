@@ -46,9 +46,14 @@ class Script(Gtk.ScrolledWindow):
         self.buffer = GtkSource.Buffer()
         self.buffer.set_language( self.lang )
         
-        
         self.view = GtkSource.View( buffer=self.buffer )
+        self.view.set_insert_spaces_instead_of_tabs( True )
+        self.view.set_indent_width( 4 )
+        self.view.set_auto_indent( True )
+        fontdesc = Pango.FontDescription( "monospace" )
+        self.view.modify_font( fontdesc )
         self.add( self.view )
+        
         if uri:
             self.file = Gio.File.new_for_uri( uri )
             name = self.file.get_basename()
