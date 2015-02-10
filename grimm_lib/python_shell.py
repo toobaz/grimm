@@ -27,7 +27,7 @@ November 2012.
 """
 
 from gi.repository import Gdk, Gtk, Pango
-from cStringIO import StringIO
+from io import StringIO
 import sys
 import traceback
 import code

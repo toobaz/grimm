@@ -21,13 +21,13 @@ This module provides the scripts editor.
 """
 
 from gi.repository import Gdk, Gtk, Pango, GtkSource, Gio
-from cStringIO import StringIO
+from io import StringIO
 import sys
 import traceback
 import code
 import os
 
-from actions import GrimmAction
+from .actions import GrimmAction
 
 # Constants describing the changed status (compared to the saved copy) of a
 # script:
@@ -83,16 +83,8 @@ class Script(Gtk.ScrolledWindow):
         button.connect( "clicked", self.close )
         button.set_relief(Gtk.ReliefStyle.NONE)
         button.set_focus_on_click( False )
-        data =  ".button {\n" \
-                "-GtkButton-default-border : 0px;\n" \
-                "-GtkButton-default-outside-border : 0px;\n" \
-                "-GtkButton-inner-border: 0px;\n" \
-                "-GtkWidget-focus-line-width : 0px;\n" \
-                "-GtkWidget-focus-padding : 0px;\n" \
-                "padding: 0px;\n" \
-                "}"
         provider = Gtk.CssProvider()
-        provider.load_from_data(data)
+        provider.load_from_path("stuff/button_style.txt")
         # 600 = GTK_STYLE_PROVIDER_PRIORITY_APPLICATION
         button.get_style_context().add_provider(provider, 600) 
         self.label.pack_start( button, False, False, 0 )

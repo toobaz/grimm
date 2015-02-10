@@ -124,5 +124,5 @@ class OpenCsv(GrimmActionOpen):
     
     method = "read_csv"
 
-import actions_statsmodels
-import actions_matplotlib
+from . import actions_statsmodels
+from . import actions_matplotlib

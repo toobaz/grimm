@@ -1,4 +1,4 @@
-#! /usr/bin/python
+#! /usr/bin/python3
 # -*- coding: utf-8 -*-
 # grimm
 #
@@ -122,7 +122,7 @@ class Grimm(object):
             self.context[col] = df[[col]]
         
     def quit(self, *args):
-        print "quit"
+        print("quit")
         Gtk.main_quit()
 
 

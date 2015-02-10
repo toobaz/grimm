@@ -22,9 +22,9 @@ from gi.repository import Gtk, Pango
 
 from statsmodels import api as sm
 
-from config import STUFF_DIR
-from actions import GrimmAction
-from ui import Ui
+from .config import STUFF_DIR
+from .actions import GrimmAction
+from .ui import Ui
 
 """
 This is the main module for the definition of StatsModels actions.
@@ -93,7 +93,6 @@ class OLS(GrimmStatsModelsModel):
         
         # ... and then delete them:
         for an_iter in iters:
-            print "remove", an_iter
             self.ui.series_indep.remove( an_iter )
         
         self.in_series.refilter()

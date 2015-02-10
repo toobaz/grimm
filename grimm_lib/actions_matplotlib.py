@@ -78,7 +78,7 @@ class Scatter(GrimmMatplotlibPlot):
         
         # ... and then delete them:
         for an_iter in iters:
-            print "remove", an_iter
+            print("remove", an_iter)
             self.ui.series_indep.remove( an_iter )
         
         self.in_series.refilter()
