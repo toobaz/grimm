@@ -21,13 +21,11 @@ import os
 from gi.repository import Gtk, Pango
 
 import matplotlib.pyplot as plt
-# To cope with old versions of matplotlib (FIXME: detect version, and use
-# conditionally):
-from matplotlib_future.backend_gtk3cairo import FigureCanvasGTK3Cairo as FigureCanvas
+from matplotlib.backends.backend_gtk3cairo import FigureCanvasGTK3Cairo as FigureCanvas
 
-from config import STUFF_DIR
-from actions import GrimmAction
-from ui import Ui
+from .config import STUFF_DIR
+from .actions import GrimmAction
+from .ui import Ui
 
 """
 This is the main module for the definition of StatsModels actions.
