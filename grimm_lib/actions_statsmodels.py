@@ -139,4 +139,4 @@ class OLS(GrimmStatsModelsModel):
         kwargs = { "missing"  : "drop",
                    "hasconst" : self.ui.hasconst.get_active() }
         
-        self( *args, **kwargs )
+        self.run_inner( *args, **kwargs )
