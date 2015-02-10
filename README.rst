@@ -8,9 +8,9 @@ It's in a very early stage of development, but to get an idea of how it looks yo
 download it and run "./grimm". Then, paste into the scripts editing window the
 following::
 
-  open_csv( "/usr/share/pyshared/pandas/tests/data/iris.csv" )
-  ols( PetalWidth, SepalWidth )
-  scatter( PetalWidth, SepalWidth )
+  open_csv("/usr/lib/python3/dist-packages/pandas/tests/data/iris.csv")
+  ols(PetalWidth, SepalWidth)
+  scatter(PetalWidth, SepalWidth)
 
 and click the "Run" button just above.
 
