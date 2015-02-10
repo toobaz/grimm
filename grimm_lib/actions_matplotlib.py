@@ -123,7 +123,7 @@ class Scatter(GrimmMatplotlibPlot):
         
         args = [endog, exog]
         kwargs = {}
-        self.run_inner( *args, **krwargs )
+        self.run_inner( *args, **kwargs )
     
     def run_inner(self, endog, exog, **kwargs ):
         
